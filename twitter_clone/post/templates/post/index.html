@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+
+
+{% block content %}
+  <div class="row">
+    <div class="col-xs-4">
+    </div>
+    <div class="col-xs-8">
+    <h1>ここは投稿一覧ページです！</h1>
+    {% for post in posts %}
+      <div class="postbox">
+        <div class="userbox">
+          <p class="name">{{name}}</p>
+        </div>
+        <div class="textbox">
+          <p>{{text}}</p>
+        </div>
+      </div>
+    {% endfor %}
+    </div>
+  </div>
+{% endblock content %}
