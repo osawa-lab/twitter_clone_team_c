@@ -6,20 +6,30 @@ from django.contrib.auth.forms import UserCreationForm
 from django.views.generic import CreateView
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.decorators import login_required
-from post.models import Post
+from django.views.generic import FormView
+from .models import Post
+from .forms import PostCreateForm
 # Create your views here.
 
 
 @login_required
 def index(request):
-  posts = Post.objects.all().order_by('id')
-  return render(request, 'post/index.html', {'posts': posts})
+    posts = Post.objects.all().order_by('id')
+    return render(request, 'post/index.html', {'posts': posts})
 
 def new(request):
-  return render(request, 'post/new.html')
+    if request.method == "POST":
+        form = PostCreateForm(request.POST)
+        if form.is_valid():
+            form.user = request.user
+            form.save()
+            return redirect('index')
+    else:
+        form = PostCreateForm()
+    return render(request, 'post/new.html', {'form': form})
 
 def edit(request):
-  return render(request, 'post/edit.html')
+    return render(request, 'post/edit.html')
 
 
 def signup(request):

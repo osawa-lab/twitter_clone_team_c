@@ -10,10 +10,13 @@
     {% for post in posts %}
       <div class="postbox">
         <div class="userbox">
-          <p class="name">{{name}}</p>
+          <p class="name">{{post.name}}</p>
         </div>
         <div class="textbox">
-          <p>{{text}}</p>
+          <p>{{post.text}}</p>
+        </div>
+        <div class="time">
+          <p>{{post.pub_date}}</p>
         </div>
       </div>
     {% endfor %}
