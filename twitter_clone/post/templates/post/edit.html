@@ -1,20 +1,17 @@
-<!DOCTYPE html>
-<html lang="ja">
-  <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
-  </head>
-  <body>
-    <h1>ここは投稿一覧ページです！</h1>
-    <div class="postbox">
-      <div class="userbox">
-        <p class="name">{{name}}</p>
-      </div>
-      <div class="textbox">
-        <p>{{text}}</p>
-      </div>
+{% extends "base.html" %}
+
+
+{% block content %}
+  <div class="row">
+    <div class="col-xs-4 mx-suto">
+    <h2>投稿編集</h2>
+      <form method="POST">
+        {% csrf_token %}
+        <p><label for="textarea">本文</label></p>
+        <p><textarea name="text" id="textarea">{{post.text}}</textarea></p>
+        <button type="submit" class="btn btn-primary">送信</button>
+      </form>
+      <a href="{% url 'show' post.pk %}" class="btn">戻る</a>
     </div>
-  </body>
-</html>
+  </div>
+{% endblock content %}

@@ -7,29 +7,85 @@ from django.views.generic import CreateView
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.decorators import login_required
 from django.views.generic import FormView
-from .models import Post
+from django.http import Http404
+from .models import Post, Comment
 from .forms import PostCreateForm
+from django.http.response import JsonResponse
 # Create your views here.
 
 
 @login_required
 def index(request):
-    posts = Post.objects.all().order_by('id')
-    return render(request, 'post/index.html', {'posts': posts})
+    context = {"posts" : Post.objects.all().order_by('id')}
+    return render(request, 'post/index.html', context)
 
 def new(request):
     if request.method == "POST":
-        form = PostCreateForm(request.POST)
-        if form.is_valid():
-            form.user = request.user
-            form.save()
-            return redirect('index')
+        post = Post.objects.create(user=request.user, text=request.POST['text'])
+        return redirect(show, post.pk)
     else:
-        form = PostCreateForm()
-    return render(request, 'post/new.html', {'form': form})
+        return render(request, 'post/new.html')
 
-def edit(request):
-    return render(request, 'post/edit.html')
+def show(request, pk):
+    try:
+        post = Post.objects.get(pk=pk)
+    except Post.DoesNotExist:
+        raise Http404
+    if request.method == "POST":
+        comment = Comment.objects.create(user=request.user, comment=request.POST['comment'], post=post)
+        return redirect(show, post.pk)
+    else:
+        context = {"post":post}
+        return render(request, 'post/show.html', context)
+
+
+def edit(request, pk):
+    try:
+        post = Post.objects.get(pk=pk)
+    except Post.DoesNotExist:
+        raise Http404
+    if request.method == "POST":
+        post.user = request.user
+        post.text=request.POST['text']
+        post.save()
+        return redirect(show, pk)
+    context = {"post":post}
+    return render(request, 'post/edit.html', context)
+
+def delete(request, pk):
+    try:
+        post = Post.objects.get(pk=pk)
+    except Post.DoesNotExist:
+        raise Http404
+    post.delete()
+    return redirect(index)
+
+def comment_delete(request, pk):
+    try:
+        comment = Comment.objects.get(pk=pk)
+        post = comment.post
+    except Comment.DoesNotExist:
+        raise Http404
+    comment.delete()
+    return redirect(show,post.pk)
+
+def like(request, pk):
+    try:
+        post = Post.objects.get(pk=pk)
+    except Post.DoesNotExist:
+        raise Http404
+    post.like += 1
+    post.save()
+    return redirect(show, pk)
+
+def like_by_api(request, pk):
+    try:
+        post = Post.objects.get(pk=pk)
+    except Post.DoesNotExist:
+        raise Http404
+    post.like += 1
+    post.save()
+    return JsonResponse({"like":post.like})
 
 
 def signup(request):

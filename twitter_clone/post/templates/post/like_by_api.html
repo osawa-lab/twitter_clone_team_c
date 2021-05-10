@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+
+{% block head %}
+<script>
+  function like_by_api() {
+    var api_url = "{% url 'like_by_api' post.ak %}";
+    var btn = document.getElementById("like");
+    var request = new XMLHttpRequest();
+    request.onreadystatechange = function() {
+      if(request.readyState === 4 && request.status === 200) {
+        var received_date = JSON.parse(request.responseText);
+        btn.innerHTML = received_data.like;
+      }
+    }
+    request.open('GET', api_url);
+    request.send();
+  }
+</script>
+{% endblock head %}

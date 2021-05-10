@@ -1,0 +1,71 @@
+{% extends "base.html" %}
+
+{% block head %}
+<script>
+  function like_by_api() {
+    var api_url = "{% url 'like_by_api' post.pk %}";
+    var btn = document.getElementById("like");
+    var request = new XMLHttpRequest();
+    request.onreadystatechange = function() {
+      if(request.readyState === 4 && request.status === 200) {
+        var received_date = JSON.parse(request.responseText);
+        btn.innerHTML = received_data.like;
+      }
+    }
+    request.open('GET', api_url);
+    request.send();
+  }
+</script>
+{% endblock head %}
+
+{% block content %}
+  <div class="row">
+    <div class="col-xs-4">
+    </div>
+    <div class="col-xs-8">
+      <div class="postbox">
+        <div class="userbox">
+          <p class="name">{{post.user.username}}</p>
+        </div>
+        <div class="textbox">
+          <p>{{post.text}}</p>
+        </div>
+        <div class="time">
+          <p>{{post.pub_date}}</p>
+        </div>
+      </div>
+      <a href="{% url 'like' post.pk %}">
+        {% if post.like == 0 %}
+          <i class="far fa-heart" style="color: red;"></i>
+        {% else %}
+          <i class="fas fa-heart" style="color: red;"></i>
+        {% endif %}
+        <span id="like">{{post.like}}</span>
+      </a>
+      <a href="{% url 'index' %}" class="btn btn-primary">一覧へ</a>
+      {% if post.user.pk == user.pk %}
+      <a href="{% url 'edit' post.pk %}" class="btn btn-success">編集</a>
+      <a href="{% url 'delete' post.pk %}" class="btn btn-danger">削除</a>
+      {% endif %}
+    </div>
+  </div>
+  <div class="comments">
+    {% for comment in post.comments.all %}
+    <div class="comment">
+      <p class="user">{{comment.user.username}}</p>
+      <p class="text">{{comment.comment}}</p>
+      <p class="pub_date">{{comment.posted_at}}</p>
+      {% if post.user.pk == user.pk %}
+      <a href="{% url 'comment_delete' comment.pk %}" class="btn btn-danger">削除</a>
+      {% endif %}
+    </div>
+    {% endfor %}
+  </div>
+  <div class="comment_form mt-3">
+    <form action="" method="POST">
+      {% csrf_token %}
+      <textarea name="comment"></textarea>
+      <button type="submit" class="btn btn-primary">コメントする</button>
+    </form>
+  </div>
+{% endblock content %}

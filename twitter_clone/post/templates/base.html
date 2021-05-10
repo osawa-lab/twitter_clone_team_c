@@ -5,6 +5,9 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  {% block head %}
+      {{ head }}
+    {% endblock %}
   <link rel="stylesheet" href="{% static '/post/css/bootstrap.min.css' %}">
   <title>Twitter Clone</title>
 </head>
@@ -37,5 +40,6 @@
 
   <script src="{% static 'post/js/jquery-3.5.0.min.js' %}"></script>
   <script src="{% static 'post/js/bootstrap.bundle.min.js' %}"></script>
+  <script src="https://kit.fontawesome.com/9f56765ddb.js" crossorigin="anonymous"></script>
 </body>
 </html>
