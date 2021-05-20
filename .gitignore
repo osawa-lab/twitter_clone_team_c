@@ -1,4 +1,5 @@
 /env/
-post/__pycache__/
-post/migrations/__pycache__/
-twitter_clone/__pycache__/
+/post/__pycache__/
+/post/migrations/__pycache__/
+/twitter_clone/__pycache__/
+/twitter_clone/db.sqlite3
