@@ -1,5 +1,6 @@
-/env/
-/post/__pycache__/
-/post/migrations/__pycache__/
-/twitter_clone/__pycache__/
-/twitter_clone/db.sqlite3
+/tenv/
+/twitter_clone/post/__pycache__/
+/twitter_clone/post/migrations/__pycache__/
+/twitter_clone/twitter_clone/__pycache__/
+/twitter_clone/twitter_clone/db.sqlite3
+/twitter_clone/media/
