@@ -8,7 +8,8 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.decorators import login_required
 from django.views.generic import FormView
 from django.http import Http404
-from .models import Post, Comment
+from django.forms import ModelForm
+from .models import Post, Comment , Profile
 from .forms import PostCreateForm
 from django.http.response import JsonResponse
 # Create your views here.
@@ -109,4 +110,20 @@ def signup(request):
 class UserProfileView(LoginRequiredMixin, TemplateView):
     template_name = 'registration/profile.html'
     def get_queryset(self):
+        profile = Profile.objects.get(user_id=self.request.user.id)
         return User.objects.get(id=self.request.user.id)
+
+
+# class UserChangeForm(ModelForm)
+#     class Meta:
+#         model = User
+#         fields =[
+#             'username',
+#             'nickname',
+#             'bio',
+#             'email',
+#         ]
+    
+#     def get_form_kwargs(self):
+#         user.username = self.cleaned_data['username']
+#         user.email = self.cleaned_data['email']
