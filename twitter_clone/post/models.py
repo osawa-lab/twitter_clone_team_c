@@ -19,3 +19,9 @@ class Comment(models.Model):
     post = models.ForeignKey(to=Post, related_name='comments', on_delete=models.CASCADE)
     def __str__(self):
         return self.comment
+
+class Profile(models.Model):
+    user_id = models.ForeignKey(get_user_model(), on_delete=models.CASCADE)
+    nickname = models.CharField(max_length=30)
+    bio = models.TextField()
+    icon = models.ImageField(upload_to='images/')
