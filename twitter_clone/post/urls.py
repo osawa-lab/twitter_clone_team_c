@@ -13,5 +13,5 @@ urlpatterns = [
     path('<int:pk>/like_by_api', views.like_by_api, name='like_by_api'),
     path("accounts/signup", views.signup, name="signup"),
     path('accounts/profile', views.UserProfileView.as_view(), name="profile"),
-    url(r'^media/(?P<path>.*)$','django.views.static.serve', {'document_root': settings.MEDIA_ROOT}),
+    #url(r'^media/(?P<path>.*)$','django.views.static.serve', {'document_root': settings.MEDIA_ROOT}),
 ]
