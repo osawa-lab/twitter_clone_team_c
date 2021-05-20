@@ -1,1 +1,4 @@
-/tenv/
+/env/
+post/__pycache__/
+post/migrations/__pycache__/
+twitter_clone/__pycache__/
