@@ -113,17 +113,8 @@ class UserProfileView(LoginRequiredMixin, TemplateView):
         profile = Profile.objects.get(user_id=self.request.user.id)
         return User.objects.get(id=self.request.user.id)
 
-
-# class UserChangeForm(ModelForm)
-#     class Meta:
-#         model = User
-#         fields =[
-#             'username',
-#             'nickname',
-#             'bio',
-#             'email',
-#         ]
-    
-#     def get_form_kwargs(self):
-#         user.username = self.cleaned_data['username']
-#         user.email = self.cleaned_data['email']
+class UserProfileEditView(LoginRequiredMixin, TemplateView):
+    template_name = 'registration/editprofile.html'
+    def get_queryset(self):
+        profile = Profile.objects.get(user_id=self.request.user.id)
+        return User.objects.get(id=self.request.user.id)
