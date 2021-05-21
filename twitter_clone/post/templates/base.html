@@ -21,7 +21,7 @@
   <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
     <div class="navbar-nav">
       {% if request.user.is_authenticated %}
-        <a class="nav-item nav-link" href="{% url 'index' %}">投稿一覧</a>
+        <a class="nav-item nav-link" href="{% url 'index' %}">ホーム</a>
         <a class="nav-item nav-link" href="{% url 'profile' %}">マイページ</a>
         <a class="nav-item nav-link" href="{% url 'new' %}">新規投稿</a>
         <a class="nav-item nav-link" href="{% url 'logout' %}">ログアウト</a>
