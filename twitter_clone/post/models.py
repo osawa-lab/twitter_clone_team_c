@@ -24,4 +24,4 @@ class Profile(models.Model):
     user_id = models.ForeignKey(get_user_model(), on_delete=models.CASCADE)
     nickname = models.CharField(max_length=30)
     bio = models.TextField()
-    icon = models.ImageField(upload_to='images/')
+    #icon = models.ImageField(upload_to='images/')
