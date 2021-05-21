@@ -4,12 +4,23 @@
   <div class="row">
     <div class="col-xs-4">
     <h1>プロフィール編集</h1>
-    <form method="POST" enc="multipart/form-data">
-      <label for="username">ユーザー名：</label><input type="text" name="username" id="username" value="{{user.username}}">
-      <label for="nickname">ニックネーム：</label><input type="text" name="nickname" id="nickname">
-      <label for="bio">自己紹介：</label><textarea name="bio" id="bio"></textarea>
-      <label for="email">E-mail：</label><input type="email" id="email"value="{% if user.email %}{{user.email}}{% else %}{% endif %}">
-      <button type="submit" class="btn btn-primary">更新する</button>
+    <form method="POST">
+      {% csrf_token %}
+      <div class="form-group">
+        <label for="username">ユーザー名：</label><input type="text" class="form-control" name="username" id="username" value="{{user.username}}">
+      </div>
+      <div class="form-group">
+        <label for="nickname">ニックネーム：</label><input type="text" class="form-control" name="nickname" id="nickname">
+      </div>
+      <div class="form-group">
+        <label for="bio">自己紹介：</label><textarea name="bio" class="form-control" id="bio"></textarea>
+      </div>
+      <div class="form-group">
+      
+        <label for="email">E-mail：</label><input type="email" class="form-control" id="email"value="{% if user.email %}{{user.email}}{% else %}{% endif %}">
+      </div>
+
+        <button type="submit" class="btn btn-primary">更新する</button>
     </form>
     </div>
   </div>
