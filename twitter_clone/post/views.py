@@ -115,6 +115,18 @@ class UserProfileView(LoginRequiredMixin, TemplateView):
 
 class UserProfileEditView(LoginRequiredMixin, TemplateView):
     template_name = 'registration/editprofile.html'
+
     def get_queryset(self):
         profile = Profile.objects.get(user_id=self.request.user.id)
+        return User.objects.get(id=self.request.user.id)
+    
+    def post(self,request):
+        profile = Profile.objects.get(user_id=self.request.user.id)
+        user = User.objects.get(id=self.request.user.id)
+        user.username = request.POST['username']
+        #user.email = request.POST['email']
+        profile.nickname = request.POST['nickname']
+        profile.bio = request.POST['bio']
+        user.save()
+        profile.save()
         return User.objects.get(id=self.request.user.id)
