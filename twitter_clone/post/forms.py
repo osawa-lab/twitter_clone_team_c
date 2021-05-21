@@ -1,7 +1,7 @@
 from django import forms
 from django.contrib.auth.models import User
-from django.forms import ModelForm
-from .models import Post
+from django.forms import ModelForm 
+from .models import Post , Profile
 
 class PostCreateForm(forms.ModelForm):
     class Meta:
@@ -14,3 +14,4 @@ class PostCreateForm(forms.ModelForm):
                 attrs={'rows': 10, 'cols': 30, 'placeholder': 'ここに入力'}
             ),
         }
+
